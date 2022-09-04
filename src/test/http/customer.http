@@ -1,0 +1,27 @@
+### Create customer with customer-ID
+POST {{basePath}}/customer
+Content-Type: application/json
+
+{
+  "id": "6d787026-86c7-4cfb-b800-4fdda58ed801",
+  "name": "Peter",
+  "city": "Berlin"
+}
+
+### Create customer without customer-ID
+POST {{basePath}}/customer
+Content-Type: application/json
+
+{
+  "name": "Peter",
+  "city": "Berlin"
+}
+
+### Find by customer-ID
+GET {{basePath}}/customer/6d787026-86c7-4cfb-b800-4fdda58ed801
+
+### Get unknown customerEntity
+GET {{basePath}}/customer/{{$uuid}}
+
+### Get all customers
+GET {{basePath}}/customer/
