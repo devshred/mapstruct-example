@@ -32,12 +32,13 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom") //
+                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom", "address") //
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerEntity.getCustomerId()).isEqualTo(customerDto.getId());
         assertThat(customerEntity.getValidFrom()).isToday();
+        assertThat(customerEntity.getAddress().getCity()).isEqualTo(customerDto.getCity());
     }
 
     @Test
@@ -47,11 +48,12 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom") //
+                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom", "address") //
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerDto.getId()).isEqualTo(customerEntity.getCustomerId());
         assertThat(customerDto.getValidFrom()).isEqualTo(customerEntity.getValidFrom().format(ISO_DATE));
+        assertThat(customerDto.getCity()).isEqualTo(customerEntity.getAddress().getCity());
     }
 }

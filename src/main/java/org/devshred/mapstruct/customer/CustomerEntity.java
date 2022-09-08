@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -12,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -50,8 +53,9 @@ public class CustomerEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String city;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private AddressEntity address;
 
     @Column(nullable = false)
     private LocalDate validFrom;
@@ -74,6 +78,7 @@ public class CustomerEntity {
 
     public static CustomerEntity createCustomerEntity(final UUID customerId, final String name, final String city,
             final LocalDate validFrom) {
-        return CustomerEntity.builder().customerId(customerId).name(name).city(city).validFrom(validFrom).build();
+        return CustomerEntity.builder().customerId(customerId).name(name)
+                .address(AddressEntity.builder().city(city).build()).validFrom(validFrom).build();
     }
 }

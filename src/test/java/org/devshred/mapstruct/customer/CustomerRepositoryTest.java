@@ -24,7 +24,7 @@ class CustomerRepositoryTest {
         Optional<CustomerEntity> found = repository.findById(saved.getId());
         assertThat(found) //
                 .isPresent().get() //
-                .extracting("name", "city") //
+                .extracting("name", "address.city") //
                 .containsExactly("Peter", "Berlin");
     }
 
@@ -36,5 +36,4 @@ class CustomerRepositoryTest {
         Optional<CustomerEntity> result = repository.findByCustomerId(entity.getCustomerId());
         assertThat(result).isPresent();
     }
-
 }

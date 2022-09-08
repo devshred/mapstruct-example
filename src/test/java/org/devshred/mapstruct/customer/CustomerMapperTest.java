@@ -28,7 +28,7 @@ class CustomerMapperTest {
 
         assertThat(entity) //
                 .isNotNull() //
-                .extracting("name", "city").containsExactly("Peter", "Berlin");
+                .extracting("name", "address.city").containsExactly("Peter", "Berlin");
 
         assertThat(entity.getCustomerId()).isEqualTo(dto.getId());
     }
