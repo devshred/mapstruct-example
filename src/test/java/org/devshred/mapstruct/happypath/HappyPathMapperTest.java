@@ -14,6 +14,7 @@ class HappyPathMapperTest {
     @Test
     void entityToDto() {
         final HappyPathEntity entity = HappyPathEntity.builder() //
+                .id(1L)
                 .field1("eins") //
                 .field2("zwei") //
                 .field3("drei") //
