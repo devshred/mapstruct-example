@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(imports = UUID.class)
 public interface CustomerMapper {
     @Mapping(source = "customerId", target = "id")
+//    @Mapping(target = "validFrom", dateFormat = "dd.MM.yyyy")
     CustomerDto entityToDto(CustomerEntity entity);
 
     @Mapping(source = "id", target = "customerId", defaultExpression = "java(UUID.randomUUID())")

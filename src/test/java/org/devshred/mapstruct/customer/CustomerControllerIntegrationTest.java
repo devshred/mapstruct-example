@@ -1,10 +1,12 @@
 package org.devshred.mapstruct.customer;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,10 +30,15 @@ class CustomerControllerIntegrationTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    private static String today() {
+        return LocalDate.now().format(ISO_DATE);
+    }
+
     @Test
     void createEntity() throws Exception {
         final UUID customerId = UUID.randomUUID();
-        final CustomerDto customer = CustomerDto.builder().id(customerId).name("Peter").city("Berlin").build();
+        final CustomerDto customer =
+                CustomerDto.builder().id(customerId).name("Peter").city("Berlin").validFrom(today()).build();
 
         mvc.perform( //
                 post("/customer") //

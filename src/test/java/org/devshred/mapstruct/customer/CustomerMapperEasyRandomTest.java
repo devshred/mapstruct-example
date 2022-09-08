@@ -1,7 +1,9 @@
 package org.devshred.mapstruct.customer;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 import org.jeasy.random.EasyRandom;
@@ -13,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 class CustomerMapperEasyRandomTest {
     private static final EasyRandom DTO_GENERATOR = new EasyRandom(new EasyRandomParameters()
             .randomize(FieldPredicates.named("status"), CustomerMapperEasyRandomTest::randomConsumerStateAsString) //
+            .randomize(FieldPredicates.named("validFrom"), () -> LocalDate.now().format(ISO_DATE)) //
     );
 
     private static final EasyRandom ENTITY_GENERATOR = new EasyRandom();
@@ -29,11 +32,12 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "createdDate", "modifiedDate") //
+                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom") //
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerEntity.getCustomerId()).isEqualTo(customerDto.getId());
+        assertThat(customerEntity.getValidFrom()).isToday();
     }
 
     @Test
@@ -43,10 +47,11 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "createdDate", "modifiedDate") //
+                .ignoringFields("id", "customerId", "createdDate", "modifiedDate", "validFrom") //
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerDto.getId()).isEqualTo(customerEntity.getCustomerId());
+        assertThat(customerDto.getValidFrom()).isEqualTo(customerEntity.getValidFrom().format(ISO_DATE));
     }
 }

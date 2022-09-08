@@ -1,5 +1,6 @@
 package org.devshred.mapstruct.customer;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -52,6 +53,9 @@ public class CustomerEntity {
     @Column(nullable = false)
     private String city;
 
+    @Column(nullable = false)
+    private LocalDate validFrom;
+
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;
@@ -65,6 +69,11 @@ public class CustomerEntity {
     }
 
     public static CustomerEntity createCustomerEntity(final UUID customerId, final String name, final String city) {
-        return CustomerEntity.builder().customerId(customerId).name(name).city(city).build();
+        return createCustomerEntity(customerId, name, city, LocalDate.now());
+    }
+
+    public static CustomerEntity createCustomerEntity(final UUID customerId, final String name, final String city,
+            final LocalDate validFrom) {
+        return CustomerEntity.builder().customerId(customerId).name(name).city(city).validFrom(validFrom).build();
     }
 }

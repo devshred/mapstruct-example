@@ -12,4 +12,5 @@ public class CustomerDto {
     String status;
     String name;
     String city;
+    String validFrom;
 }
