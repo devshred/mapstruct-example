@@ -6,7 +6,7 @@ Content-Type: application/json
   "id": "6d787026-86c7-4cfb-b800-4fdda58ed801",
   "name": "Peter",
   "city": "Berlin",
-  "validFrom": "2022-09-01"
+  "startDate": "2022-09-01"
 }
 
 ### Create customer without customer-ID
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
   "name": "Peter",
   "city": "Berlin",
-  "validFrom": "2022-09-01"
+  "startDate": "2022-09-01"
 }
 
 ### Find by customer-ID

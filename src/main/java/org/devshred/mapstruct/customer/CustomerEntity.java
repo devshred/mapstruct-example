@@ -58,7 +58,7 @@ public class CustomerEntity {
     private AddressEntity address;
 
     @Column(nullable = false)
-    private LocalDate validFrom;
+    private LocalDate startDate;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
@@ -77,8 +77,8 @@ public class CustomerEntity {
     }
 
     public static CustomerEntity createCustomerEntity(final UUID customerId, final String name, final String city,
-            final LocalDate validFrom) {
+            final LocalDate startDate) {
         return CustomerEntity.builder().customerId(customerId).name(name)
-                .address(AddressEntity.builder().city(city).build()).validFrom(validFrom).build();
+                .address(AddressEntity.builder().city(city).build()).startDate(startDate).build();
     }
 }

@@ -38,7 +38,7 @@ class CustomerControllerIntegrationTest {
     void createEntity() throws Exception {
         final UUID customerId = UUID.randomUUID();
         final CustomerDto customer =
-                CustomerDto.builder().id(customerId).name("Peter").city("Berlin").validFrom(today()).build();
+                CustomerDto.builder().id(customerId).name("Peter").city("Berlin").startDate(today()).build();
 
         mvc.perform( //
                 post("/customer") //
