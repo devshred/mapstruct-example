@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "happy_child")
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 public class HappyChild {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +29,7 @@ public class HappyChild {
 
     private String name;
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "child")
     private HappyPathEntity parent;
 }
