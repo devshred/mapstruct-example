@@ -15,7 +15,7 @@ public interface CustomerMapper {
 
     @Mapping(target = "customerId", source = "id", defaultExpression = "java(UUID.randomUUID())")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contract.type", source = "contractType")
+    @Mapping(target = "contract.type", source = "contractType", defaultValue = "BUSINESS")
     CustomerEntity dtoToEntity(CustomerDto dto);
 
     AddressDto entityToDto(AddressEntity entity);
