@@ -18,12 +18,16 @@ class CustomerMapperTest {
 
         assertThat(customerDto) //
                 .isNotNull() //
-                .extracting("name", "city").containsExactly("Peter", "Berlin");
+                .extracting("name", "address.city").containsExactly("Peter", "Berlin");
     }
 
     @Test
     void dtoToEntity() {
-        final CustomerDto dto = CustomerDto.builder().id(UUID.randomUUID()).name("Peter").city("Berlin").build();
+        final CustomerDto dto = CustomerDto.builder() //
+                .id(UUID.randomUUID()) //
+                .name("Peter") //
+                .address(new AddressDto("Berlin", "Parkstrasse")) //
+                .build();
         final CustomerEntity entity = mapper.dtoToEntity(dto);
 
         assertThat(entity) //
@@ -35,7 +39,8 @@ class CustomerMapperTest {
 
     @Test
     void createCustomerIdIfEmpty() {
-        final CustomerDto dto = CustomerDto.builder().name("Peter").city("Berlin").build();
+        final CustomerDto dto =
+                CustomerDto.builder().name("Peter").address(new AddressDto("Berlin", "Parkstrasse")).build();
         final CustomerEntity entity = mapper.dtoToEntity(dto);
 
         assertThat(entity.getCustomerId()).isNotNull();

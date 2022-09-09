@@ -2,6 +2,8 @@ package org.devshred.mapstruct.customer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,20 +16,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "address")
+@Table(name = "contract")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AddressEntity {
+public class ContractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    private String city;
-    private String street;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ContractType type;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "contract")
     private CustomerEntity parent;
 }

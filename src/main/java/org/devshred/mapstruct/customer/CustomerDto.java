@@ -11,6 +11,7 @@ public class CustomerDto {
     UUID id;
     String status;
     String name;
-    String city;
+    String contractType;
+    AddressDto address;
     String startDate;
 }

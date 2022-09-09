@@ -15,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 class CustomerMapperEasyRandomTest {
     private static final EasyRandom DTO_GENERATOR = new EasyRandom(new EasyRandomParameters()
             .randomize(FieldPredicates.named("status"), CustomerMapperEasyRandomTest::randomConsumerStateAsString) //
+            .randomize(FieldPredicates.named("contractType"), CustomerMapperEasyRandomTest::randomContractTypeAsString) //
             .randomize(FieldPredicates.named("startDate"), () -> LocalDate.now().format(ISO_DATE)) //
     );
 
@@ -25,6 +26,10 @@ class CustomerMapperEasyRandomTest {
         return ConsumerStatus.values()[new Random().nextInt(ConsumerStatus.values().length)].name();
     }
 
+    private static String randomContractTypeAsString() {
+        return ContractType.values()[new Random().nextInt(ContractType.values().length)].name();
+    }
+
     @Test
     void dtoToEntity() {
         final CustomerDto customerDto = DTO_GENERATOR.nextObject(CustomerDto.class);
@@ -32,14 +37,15 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "address") //
+                .ignoringFields("id", "customerId", "address", "contract") //
                 .ignoringFieldsMatchingRegexes(".*Date")
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerEntity.getCustomerId()).isEqualTo(customerDto.getId());
         assertThat(customerEntity.getStartDate()).isToday();
-        assertThat(customerEntity.getAddress().getCity()).isEqualTo(customerDto.getCity());
+        assertThat(customerEntity.getContract().getType().name()).isEqualTo(customerDto.getContractType());
+        assertThat(customerEntity.getAddress().getCity()).isEqualTo(customerDto.getAddress().getCity());
     }
 
     @Test
@@ -49,13 +55,14 @@ class CustomerMapperEasyRandomTest {
 
         assertThat(customerEntity) //
                 .usingRecursiveComparison() //
-                .ignoringFields("id", "customerId", "address") //
+                .ignoringFields("id", "customerId", "address", "contract") //
                 .ignoringFieldsMatchingRegexes(".*Date")
                 .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerDto.getId()).isEqualTo(customerEntity.getCustomerId());
         assertThat(customerDto.getStartDate()).isEqualTo(customerEntity.getStartDate().format(ISO_DATE));
-        assertThat(customerDto.getCity()).isEqualTo(customerEntity.getAddress().getCity());
+        assertThat(customerDto.getContractType()).isEqualTo(customerEntity.getContract().getType().name());
+        assertThat(customerDto.getAddress().getCity()).isEqualTo(customerEntity.getAddress().getCity());
     }
 }

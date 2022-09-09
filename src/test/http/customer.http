@@ -3,10 +3,14 @@ POST {{basePath}}/customer
 Content-Type: application/json
 
 {
-  "id": "6d787026-86c7-4cfb-b800-4fdda58ed801",
-  "name": "Peter",
-  "city": "Berlin",
-  "startDate": "2022-09-01"
+  "id":"0d26047c-d1fe-42f4-bfde-6fd519d1ba05",
+  "name":"Peter",
+  "contractType":"ECONOMY",
+  "address":{
+    "city":"Berlin",
+    "street": "Parkstrasse"
+  },
+  "startDate":"2022-09-09"
 }
 
 ### Create customer without customer-ID
