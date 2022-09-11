@@ -3,7 +3,7 @@ POST {{basePath}}/customer
 Content-Type: application/json
 
 {
-  "id":"0d26047c-d1fe-42f4-bfde-6fd519d1ba05",
+  "id":"6d787026-86c7-4cfb-b800-4fdda58ed801",
   "status": "STANDARD",
   "name":"Peter",
   "contractType":"ECONOMY",
