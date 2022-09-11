@@ -23,7 +23,7 @@ class CustomerMapperEasyRandomTest {
     private final CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 
     private static String randomConsumerStateAsString() {
-        return ConsumerStatus.values()[new Random().nextInt(ConsumerStatus.values().length)].name();
+        return CustomerStatus.values()[new Random().nextInt(CustomerStatus.values().length)].name();
     }
 
     private static String randomContractTypeAsString() {
@@ -39,7 +39,7 @@ class CustomerMapperEasyRandomTest {
                 .usingRecursiveComparison() //
                 .ignoringFields("id", "customerId", "address", "contract") //
                 .ignoringFieldsMatchingRegexes(".*Date")
-                .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
+                .withEqualsForFields((CustomerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerEntity.getCustomerId()).isEqualTo(customerDto.getId());
@@ -57,7 +57,7 @@ class CustomerMapperEasyRandomTest {
                 .usingRecursiveComparison() //
                 .ignoringFields("id", "customerId", "address", "contract") //
                 .ignoringFieldsMatchingRegexes(".*Date")
-                .withEqualsForFields((ConsumerStatus e, String d) -> e.name().equals(d), "status") //
+                .withEqualsForFields((CustomerStatus e, String d) -> e.name().equals(d), "status") //
                 .isEqualTo(customerDto);
 
         assertThat(customerDto.getId()).isEqualTo(customerEntity.getCustomerId());

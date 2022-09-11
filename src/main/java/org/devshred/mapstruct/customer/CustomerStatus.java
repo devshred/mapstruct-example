@@ -1,6 +1,6 @@
 package org.devshred.mapstruct.customer;
 
-public enum ConsumerStatus {
+public enum CustomerStatus {
     STANDARD,
     REGULAR,
     DEFAULT,

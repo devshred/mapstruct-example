@@ -48,7 +48,7 @@ public class CustomerEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private ConsumerStatus status;
+    private CustomerStatus status;
 
     @Column(nullable = false)
     private String name;
