@@ -1,24 +1,16 @@
 package org.devshred.mapstruct.customer;
 
-import java.util.UUID;
-
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(imports = UUID.class)
+@Mapper
 public interface CustomerMapper {
-    @Mapping(source = "customerId", target = "id")
-    @Mapping(source = "contract.type", target = "contractType")
-    // @Mapping(target = "startDate", dateFormat = "dd.MM.yyyy")
-    // @InheritInverseConfiguration
-    CustomerDto entityToDto(CustomerEntity entity);
-
-    @Mapping(target = "customerId", source = "id", defaultExpression = "java(UUID.randomUUID())")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "customerId", source = "id", defaultExpression = "java(java.util.UUID.randomUUID())")
     @Mapping(target = "contract.type", source = "contractType", defaultValue = "BUSINESS")
     CustomerEntity dtoToEntity(CustomerDto dto);
 
-    AddressDto entityToDto(AddressEntity entity);
-
-    AddressEntity dtoToEntity(AddressDto dto);
+    @InheritInverseConfiguration
+    CustomerDto entityToDto(CustomerEntity entity);
 }
